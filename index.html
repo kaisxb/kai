@@ -3,20 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تحدي لغتي الخارق ⚡</title>
+  <title>ملخص قواعد اللغة العربية | ثانوية الأمير عبدالمحسن</title>
+
+  <!-- خط Tajawal الواضح لشاشات العرض -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- الأيقونات ومؤثرات الاحتفال -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <style>
     :root {
-      --bg: #0f172a;
+      --bg: #0b1120;
       --card-bg: #1e293b;
-      --accent: #38bdf8;
-      --accent-hover: #0ea5e9;
-      --success: #22c55e;
-      --danger: #ef4444;
+      --card-border: #334155;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #f59e0b;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --purple: #8b5cf6;
       --text: #f8fafc;
       --text-muted: #94a3b8;
+      --base-font-size: 18px;
+    }
+
+    body.large-display {
+      --base-font-size: 22px;
     }
 
     * {
@@ -27,396 +42,676 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #1e1b4b, var(--bg));
+      background-color: var(--bg);
       color: var(--text);
+      font-size: var(--base-font-size);
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      transition: font-size 0.2s ease;
+    }
+
+    /* الشريط العلوي */
+    .top-bar {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 2px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      color: #60a5fa;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-action {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ترويسة المدرسة والمعلم والطالب */
+    .school-header {
+      max-width: 1100px;
+      margin: 20px auto 10px;
+      width: 92%;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 2px solid #3b82f6;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .info-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      flex: 1 1 240px;
+    }
+
+    .info-card i {
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .info-card .meta-text span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .info-card .meta-text strong {
+      font-size: 1.15rem;
+      color: #fff;
+    }
+
+    /* أشرطة التنقل */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 20px auto;
+      width: 92%;
+      max-width: 650px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 14px 20px;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 14px;
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1.5rem;
+      gap: 10px;
+      transition: all 0.2s ease;
     }
 
-    .container {
+    .tab-btn.active {
+      background: var(--primary);
+      border-color: #60a5fa;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(37, 99, 235, 0.4);
+    }
+
+    /* الحاوية الرئيسية */
+    .main-container {
+      max-width: 1100px;
+      width: 92%;
+      margin: 0 auto 50px;
+      flex-grow: 1;
+    }
+
+    .view-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .view-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* كروت الدروس المتقدمة */
+    .lessons-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .lesson-item {
       background: var(--card-bg);
-      border-radius: 24px;
-      padding: 2rem;
-      width: 100%;
-      max-width: 550px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 2px solid var(--card-border);
+      border-radius: 18px;
+      padding: 24px;
       position: relative;
       overflow: hidden;
     }
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .stat-badge {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .progress-track {
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50px;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-    }
-
-    .progress-fill {
+    .lesson-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 6px;
       height: 100%;
-      background: linear-gradient(90deg, #38bdf8, #818cf8);
-      width: 100%;
-      transition: width 1s linear;
     }
 
-    .question-box {
-      margin-bottom: 1.8rem;
-    }
+    .lesson-item.c-blue::after { background: var(--primary); }
+    .lesson-item.c-purple::after { background: var(--purple); }
+    .lesson-item.c-emerald::after { background: var(--emerald); }
 
-    .question-category {
-      color: var(--accent);
-      font-size: 0.9rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 0.4rem;
-    }
-
-    .question-title {
-      font-size: 1.4rem;
-      line-height: 1.5;
-      font-weight: 700;
-    }
-
-    .options-grid {
+    .lesson-header {
       display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
     }
 
-    .btn-opt {
+    .lesson-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .c-blue .lesson-icon { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+    .c-purple .lesson-icon { background: rgba(139, 92, 246, 0.2); color: #c084fc; }
+    .c-emerald .lesson-icon { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+    .lesson-header h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+    }
+
+    /* شبكة تفاصيل الدرس */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .rule-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .rule-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rule-card p {
+      font-size: 0.98rem;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .example-box {
       background: rgba(255, 255, 255, 0.04);
-      border: 2px solid rgba(255, 255, 255, 0.08);
-      color: var(--text);
-      padding: 1rem 1.2rem;
-      border-radius: 14px;
-      font-size: 1.05rem;
-      font-weight: bold;
-      cursor: pointer;
-      text-align: right;
-      transition: all 0.2s ease;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      border-right: 3px solid var(--primary);
+      color: #93c5fd;
+      margin-top: 8px;
+    }
+
+    /* بنك الأسئلة */
+    .quiz-container {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .quiz-stats {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--card-border);
+      font-weight: 800;
     }
 
-    .btn-opt:hover:not(:disabled) {
-      background: rgba(56, 189, 248, 0.1);
-      border-color: var(--accent);
-      transform: translateY(-2px);
+    .quiz-question {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: #fff;
     }
 
-    .btn-opt.correct {
-      background: rgba(34, 197, 94, 0.2) !important;
-      border-color: var(--success) !important;
-      color: #86efac;
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
-    .btn-opt.wrong {
-      background: rgba(239, 68, 68, 0.2) !important;
-      border-color: var(--danger) !important;
-      color: #fca5a5;
+    @media (max-width: 768px) {
+      .quiz-options { grid-template-columns: 1fr; }
     }
 
-    .explanation {
-      margin-top: 1.2rem;
-      padding: 1rem;
+    .quiz-opt-btn {
+      background: #0f172a;
+      border: 2px solid var(--card-border);
+      color: var(--text);
+      padding: 18px 20px;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-align: right;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-opt-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: #1e3a8a;
+    }
+
+    .quiz-opt-btn.correct {
+      background: rgba(16, 185, 129, 0.25) !important;
+      border-color: var(--emerald) !important;
+      color: #a7f3d0 !important;
+    }
+
+    .quiz-opt-btn.wrong {
+      background: rgba(244, 63, 94, 0.25) !important;
+      border-color: var(--rose) !important;
+      color: #fecdd3 !important;
+    }
+
+    .quiz-feedback {
+      margin-top: 20px;
+      padding: 16px;
       border-radius: 12px;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      background: rgba(255, 255, 255, 0.05);
-      display: none;
-    }
-
-    .btn-next {
-      width: 100%;
-      background: linear-gradient(135deg, #38bdf8, #6366f1);
-      border: none;
-      color: white;
-      padding: 1rem;
-      border-radius: 14px;
+      font-weight: 700;
       font-size: 1.1rem;
-      font-weight: 900;
-      margin-top: 1.2rem;
-      cursor: pointer;
-      display: none;
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-      transition: transform 0.2s ease;
-    }
-
-    .btn-next:hover {
-      transform: scale(1.02);
-    }
-
-    .screen {
       display: none;
     }
 
-    .screen.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
+    .quiz-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 24px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #38bdf8, #6366f1);
-      border: none;
+    .next-btn {
+      background: var(--primary);
       color: white;
-      padding: 1rem;
-      border-radius: 14px;
-      font-size: 1.2rem;
-      font-weight: 900;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 800;
       cursor: pointer;
-      margin-top: 1.5rem;
+      display: none;
     }
+
+    .next-btn:hover { background: var(--primary-hover); }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Start Screen -->
-    <div id="startScreen" class="screen active" style="text-align: center;">
-      <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">🔥   </h1>
-      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">اختبر معلوماتك في الإعراب، الإملاء، وألغاز البلاغة قبل نفاد الوقت!</p>
-      <div style="background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 16px; margin-bottom: 1.5rem; text-align: right;">
-        <p>⚡ <b>المؤقت:</b> 15 ثانية لكل سؤال</p>
-        <p>🎯 <b>النقاط:</b> كل إجابة سريعة تعطيك نقاطاً أعلى</p>
-        <p>🏆 <b>الهدف:</b> جمع أعلى رقم قياسي</p>
-      </div>
-      <button class="hero-btn" onclick="startQuiz()">انطلاق 🚀</button>
+  <!-- شريط التحكم العلوي -->
+  <div class="top-bar">
+    <div class="brand-title">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span>منصة الكفايات اللغوية التفاعلية</span>
     </div>
-
-    <!-- Quiz Screen -->
-    <div id="quizScreen" class="screen">
-      <div class="top-bar">
-        <div class="stat-badge">⏱️ <span id="timerText">15</span>ث</div>
-        <div class="stat-badge">⭐ النقاط: <span id="scoreText">0</span></div>
-        <div class="stat-badge">السؤال <span id="qIndex">1</span>/5</div>
-      </div>
-
-      <div class="progress-track">
-        <div id="timerBar" class="progress-fill"></div>
-      </div>
-
-      <div class="question-box">
-        <div id="qCat" class="question-category">نحو وإعراب</div>
-        <div id="qTitle" class="question-title">تحميل السؤال...</div>
-      </div>
-
-      <div id="optionsContainer" class="options-grid"></div>
-
-      <div id="explainBox" class="explanation"></div>
-      <button id="nextBtn" class="btn-next" onclick="nextQuestion()">التالي ➔</button>
-    </div>
-
-    <!-- Result Screen -->
-    <div id="endScreen" class="screen" style="text-align: center;">
-      <h2 style="font-size: 2rem; margin-bottom: 0.5rem;" id="endTitle">مبروك! 🎉</h2>
-      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">لقد أنهيت التحدي بنجاح</p>
-      <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent); margin-bottom: 1rem;" id="finalScore">0</div>
-      <p id="endMessage" style="font-size: 1.1rem; margin-bottom: 2rem;"></p>
-      <button class="hero-btn" onclick="restartQuiz()">إعادة التحدي 🔄</button>
+    <div class="top-controls">
+      <button class="btn-action" onclick="toggleTextSize()">
+        <i class="fa-solid fa-font"></i> تكبير الخط للعرض
+      </button>
+      <button class="btn-action" onclick="toggleFullscreen()">
+        <i class="fa-solid fa-expand"></i> ملء الشاشة
+      </button>
     </div>
   </div>
 
+  <!-- ترويسة العرض الرسمية -->
+  <header class="school-header">
+    <div class="info-card">
+      <i class="fa-solid fa-school"></i>
+      <div class="meta-text">
+        <span>المدرسة</span>
+        <strong>ثانوية الأمير عبدالمحسن</strong>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <i class="fa-solid fa-chalkboard-user"></i>
+      <div class="meta-text">
+        <span>إشراف الأستاذ</span>
+        <strong>محمد تركي</strong>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <i class="fa-solid fa-user-graduate"></i>
+      <div class="meta-text">
+        <span>إعداد وتقديم</span>
+        <strong>عمل الطالب المشارك</strong>
+      </div>
+    </div>
+  </header>
+
+  <!-- أزرار التنقل الرئيسية -->
+  <nav class="nav-tabs">
+    <button class="tab-btn active" onclick="switchView('lessons')">
+      <i class="fa-solid fa-book-open-reader"></i> ملخص الدروس
+    </button>
+    <button class="tab-btn" onclick="switchView('quiz')">
+      <i class="fa-solid fa-gamepad"></i> المسابقة والأسئلة
+    </button>
+  </nav>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="main-container">
+
+    <!-- شاشة ملخص الدروس -->
+    <div id="lessons-view" class="view-content active">
+      <div class="lessons-grid">
+
+        <!-- 1. الجملة الاسمية ونواسخها -->
+        <article class="lesson-item c-blue">
+          <div class="lesson-header">
+            <div class="lesson-icon"><i class="fa-solid fa-diagram-project"></i></div>
+            <h2>1. مكونات الجملة الاسمية ونواسخها</h2>
+          </div>
+          <div class="rules-grid">
+            <div class="rule-card">
+              <h3><i class="fa-solid fa-circle-dot"></i> الأصلية (المجردة)</h3>
+              <p>تتكون من <strong>مبتدأ مرفوع + خبر مرفوع</strong>.</p>
+              <div class="example-box">مثال: الطالبُ مجتهدٌ.</div>
+            </div>
+            <div class="rule-card">
+              <h3><i class="fa-solid fa-circle-dot"></i> مع الأفعال الناسخة (كان وأخواتها)</h3>
+              <p><strong>فعل ناسخ + اسمه (مرفوع) + خبره (منصوب)</strong>.</p>
+              <div class="example-box">مثال: كان الطالبُ مجتهداً.</div>
+            </div>
+            <div class="rule-card">
+              <h3><i class="fa-solid fa-circle-dot"></i> مع الحروف الناسخة (إن وأخواتها)</h3>
+              <p><strong>حرف ناسخ + اسمه (منصوب) + خبره (مرفوع)</strong>.</p>
+              <div class="example-box">مثال: إنّ الطالبَ مجتهدٌ.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. إعراب الفعل المضارع -->
+        <article class="lesson-item c-purple">
+          <div class="lesson-header">
+            <div class="lesson-icon"><i class="fa-solid fa-pen-nib"></i></div>
+            <h2>2. إعراب الفعل المضارع</h2>
+          </div>
+          <div class="rules-grid">
+            <div class="rule-card">
+              <h3><i class="fa-solid fa-circle-dot"></i> الرفع (الأصل)</h3>
+              <p>يُرفع إذا لم يُسبق بناصب أو جازم (بالضمة، أو ثبوت النون للأفعال الخمسة).</p>
+              <div class="example-box">مثال: يكتبُ محمدٌ الدرسَ.</div>
+            </div>
+            <div class="rule-card">
+              <h3><i class="fa-solid fa-circle-dot"></i> النصب</h3>
+              <p>إذا سُبق بأداة نصب: (أنْ، لن، كي، حتى، لام التعليل) بالفتحة أو حذف النون.</p>
+              <div class="example-box">مثال: لن يُهملَ الطالبُ واجبه.</div>
+            </div>
+            <div class="rule-card">
+              <h3><i class="fa-solid fa-circle-dot"></i> الجزم</h3>
+              <p>إذا سُبق بأداة جزم: (لمْ، لا الناهية، لام الأمر) بالسكون، أو حذف حرف العلة، أو حذف النون.</p>
+              <div class="example-box">مثال: لا تقصّرْ في عملك.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. الفاعل ونائب الفاعل -->
+        <article class="lesson-item c-emerald">
+          <div class="lesson-header">
+            <div class="lesson-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+            <h2>3. الفاعل ونائب الفاعل</h2>
+          </div>
+          <div class="rules-grid">
+            <div class="rule-card">
+              <h3><i class="fa-solid fa-circle-dot"></i> الفاعل</h3>
+              <p>اسم مرفوع يدل على من قام بالفعل في الجملة المبنية للمعلوم.</p>
+              <div class="example-box">مثال: كتبَ <strong>الطالبُ</strong> المقالَ.</div>
+            </div>
+            <div class="rule-card">
+              <h3><i class="fa-solid fa-circle-dot"></i> نائب الفاعل</h3>
+              <p>اسم مرفوع يحل محل الفاعل بعد حذفه في الجملة المبنية للمجهول (يُضم أول الفعل ويكسر ما قبل آخره في الماضي، ويُفتح في المضارع).</p>
+              <div class="example-box">مثال: كُتِبَ <strong>المقالُ</strong>.</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- شاشة المسابقة التفاعلية -->
+    <div id="quiz-view" class="view-content">
+      <div class="quiz-container">
+        <div class="quiz-stats">
+          <span style="color: var(--accent);" id="q-counter">السؤال 1 من 4</span>
+          <span style="color: #60a5fa;" id="q-score">النقاط: 0</span>
+        </div>
+
+        <div class="quiz-question" id="q-text">تحميل السؤال...</div>
+        <div class="quiz-options" id="q-options"></div>
+        <div class="quiz-feedback" id="q-feedback"></div>
+
+        <div class="quiz-footer">
+          <button class="next-btn" id="next-q-btn" onclick="nextQuestion()">السؤال التالي <i class="fa-solid fa-arrow-left"></i></button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
   <script>
-    // Audio FX using Web Audio API
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playTone(freq, type, duration) {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = type;
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + duration);
-    }
-
-    const playCorrect = () => { playTone(587.33, 'sine', 0.1); setTimeout(() => playTone(880, 'sine', 0.2), 100); };
-    const playWrong = () => { playTone(220, 'triangle', 0.2); setTimeout(() => playTone(164.81, 'triangle', 0.3), 150); };
-
-    // Questions Data
-    const questions = [
+    // بنك الأسئلة المباشر المخصص للدروس المعروضة
+    const quizData = [
       {
-        cat: "إملاء وذكاء",
-        q: "أيّ الكلمات التالية كُتبت فيها الهمزة بشكل صحيح؟",
-        options: ["مسؤلية", "مسؤولية", "مسئولية", "مسؤالية"],
-        ans: 1,
-        exp: "تُكتب 'مسؤولية' بالهمزة على واو لأن الهمزة مضمومة وما قبلها ساكن، والضم أقوى من السكون."
+        question: "عند دخول حرف ناسخ مثل (إنّ) على الجملة الاسمية، ماذا يحدث للمبتدأ والخبر؟",
+        options: [
+          "ينصب المبتدأ ويرفع الخبر",
+          "يرفع المبتدأ وينصب الخبر",
+          "يرفع المبتدأ والخبر معاً",
+          "يجزم المبتدأ والخبر"
+        ],
+        correct: 0,
+        explanation: "أحسنت! إنّ وأخواتها حروف ناسخة تنصب المبتدأ ويسمى اسمها، وترفع الخبر ويسمى خبرها."
       },
       {
-        cat: "نحو وإعراب",
-        q: "ما إعراب كلمة «أخوك» في: «إنّ أخاك ذو علمٍ»؟",
-        options: ["اسم إنّ منصوب بالألف", "خبر إنّ مرفوع بالواو", "مبتدأ مرفوع بالضمة", "فاعل مرفوع بالواو"],
-        ans: 0,
-        exp: "«أخاك» اسم إنّ منصوب وعلامة نصبه الألف لأنه من الأسماء الخمسة."
+        question: "ما هي علامة إعراب الفعل المضارع في جملة: (لن يُهملَ الطالبُ)؟",
+        options: [
+          "مرفوع بالضمة",
+          "منصوب وعلامة نصبه الفتحة",
+          "مجزوم بالسكون",
+          "مبني على الفتح"
+        ],
+        correct: 1,
+        explanation: "إجابة صحيحة! (لن) أداة نصب تنصب الفعل المضارع بالفتحة الظاهرة."
       },
       {
-        cat: "ألغاز نحوية",
-        q: "«لا تنهَ عن خُلقٍ وتأتيَ مِثْلَهُ».. الواو هنا هي واو:",
-        options: ["العطف", "الحال", "المعية", "القسم"],
-        ans: 2,
-        exp: "هي واو المعية؛ لذا نُصب الفعل المضارع (تأتيَ) بعدها بأن مضمرة."
+        question: "عند تحويل جملة (شَرِبَ الطفلُ الحليبَ) إلى مبني للمجهول تصبح:",
+        options: [
+          "شَرِبَ الحليبُ",
+          "شُرِبَ الحليبُ",
+          "يَشرَب الحليبَ",
+          "تَشرب الحليبُ"
+        ],
+        correct: 1,
+        explanation: "ممتاز! نضم أول الفعل الماضي ونكسر ما قبل آخره ويتحول المفعول به لنائب فاعل مرفوع (شُرِبَ الحليبُ)."
       },
       {
-        cat: "تراكيب لغوية",
-        q: "الجمع الصحيح لكلمة «فَم» هو:",
-        options: ["أفمام", "فموم", "أفواه", "فيَم"],
-        ans: 2,
-        exp: "أصل كلمة فم هو (فوه)، لذلك تُرد إلى أصلها عند الجمع فتصبح «أفواه»."
-      },
-      {
-        cat: "فنون وبلاغة",
-        q: "الجملة التي تشتمل على أسلوب تعجب قياسي هي:",
-        options: ["سبحان الله!", "ما أجملَ الصدقَ!", "يا لروعة البحر!", "كيف فعلت هذا؟"],
-        ans: 1,
-        exp: "صيغة (ما أفعَلَ) مثل «ما أجملَ» هي إحدى صيغ التعجب القياسية."
+        question: "ما حكم إعراب نائب الفاعل دائماً؟",
+        options: [
+          "النصب",
+          "الجر",
+          "الرفع",
+          "الجزم"
+        ],
+        correct: 2,
+        explanation: "صحيح تماماً! نائب الفاعل يأخذ حكم الفاعل الأصلي وهو الرفع دائماً."
       }
     ];
 
     let currentIdx = 0;
-    let score = 0;
-    let timeLeft = 15;
-    let timerInterval = null;
-    const maxTime = 15;
+    let totalScore = 0;
 
-    function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
+    function renderQuiz() {
+      const q = quizData[currentIdx];
+      document.getElementById('q-counter').innerText = `السؤال ${currentIdx + 1} من ${quizData.length}`;
+      document.getElementById('q-text').innerText = q.question;
 
-    function startQuiz() {
-      currentIdx = 0;
-      score = 0;
-      showScreen('quizScreen');
-      loadQuestion();
-    }
+      const optsBox = document.getElementById('q-options');
+      optsBox.innerHTML = '';
+      
+      const feedBox = document.getElementById('q-feedback');
+      feedBox.style.display = 'none';
+      document.getElementById('next-q-btn').style.display = 'none';
 
-    function loadQuestion() {
-      clearInterval(timerInterval);
-      timeLeft = maxTime;
-      updateTimerUI();
-
-      const q = questions[currentIdx];
-      document.getElementById('qIndex').innerText = currentIdx + 1;
-      document.getElementById('scoreText').innerText = score;
-      document.getElementById('qCat').innerText = q.cat;
-      document.getElementById('qTitle').innerText = q.q;
-      document.getElementById('explainBox').style.display = 'none';
-      document.getElementById('nextBtn').style.display = 'none';
-
-      const optBox = document.getElementById('optionsContainer');
-      optBox.innerHTML = '';
-
-      q.options.forEach((opt, i) => {
+      q.options.forEach((opt, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'btn-opt';
-        btn.innerHTML = `<span>${opt}</span>`;
-        btn.onclick = () => selectAnswer(i);
-        optBox.appendChild(btn);
+        btn.className = 'quiz-opt-btn';
+        btn.innerHTML = `<i class="fa-regular fa-circle"></i> <span>${opt}</span>`;
+        btn.onclick = () => selectAnswer(idx);
+        optsBox.appendChild(btn);
       });
-
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        updateTimerUI();
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          timeOut();
-        }
-      }, 1000);
     }
 
-    function updateTimerUI() {
-      document.getElementById('timerText').innerText = timeLeft;
-      const pct = (timeLeft / maxTime) * 100;
-      document.getElementById('timerBar').style.width = pct + '%';
-    }
+    function selectAnswer(userPick) {
+      const q = quizData[currentIdx];
+      const buttons = document.querySelectorAll('.quiz-opt-btn');
+      const feedback = document.getElementById('q-feedback');
 
-    function selectAnswer(selected) {
-      clearInterval(timerInterval);
-      const q = questions[currentIdx];
-      const buttons = document.querySelectorAll('.btn-opt');
       buttons.forEach(b => b.disabled = true);
 
-      const expBox = document.getElementById('explainBox');
-      expBox.style.display = 'block';
+      if (userPick === q.correct) {
+        buttons[userPick].classList.add('correct');
+        buttons[userPick].querySelector('i').className = 'fa-solid fa-circle-check';
+        feedback.style.display = 'block';
+        feedback.style.background = 'rgba(16, 185, 129, 0.15)';
+        feedback.style.color = '#34d399';
+        feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${q.explanation}`;
+        totalScore += 10;
+        document.getElementById('q-score').innerText = `النقاط: ${totalScore}`;
 
-      if (selected === q.ans) {
-        buttons[selected].classList.add('correct');
-        playCorrect();
-        const earned = 100 + (timeLeft * 10);
-        score += earned;
-        document.getElementById('scoreText').innerText = score;
-        expBox.innerHTML = `✨ <b>إجابة خارقة!</b> (+${earned} نقطة)<br>${q.exp}`;
+        confetti({
+          particleCount: 90,
+          spread: 75,
+          origin: { y: 0.6 }
+        });
       } else {
-        if (selected !== -1) buttons[selected].classList.add('wrong');
-        buttons[q.ans].classList.add('correct');
-        playWrong();
-        expBox.innerHTML = `❌ <b>أوبس!</b><br>${q.exp}`;
+        buttons[userPick].classList.add('wrong');
+        buttons[userPick].querySelector('i').className = 'fa-solid fa-circle-xmark';
+        buttons[q.correct].classList.add('correct');
+        feedback.style.display = 'block';
+        feedback.style.background = 'rgba(244, 63, 94, 0.15)';
+        feedback.style.color = '#fb7185';
+        feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> إجابة غير صحيحة. الإجابة الصحيحة مظللة بالأخضر.`;
       }
 
-      document.getElementById('nextBtn').style.display = 'block';
-    }
-
-    function timeOut() {
-      selectAnswer(-1);
-      document.getElementById('explainBox').innerHTML = `⏰ <b>انتهى الوقت!</b><br>${questions[currentIdx].exp}`;
+      document.getElementById('next-q-btn').style.display = 'inline-block';
     }
 
     function nextQuestion() {
       currentIdx++;
-      if (currentIdx < questions.length) {
-        loadQuestion();
+      if (currentIdx < quizData.length) {
+        renderQuiz();
       } else {
-        endQuiz();
+        showResults();
       }
     }
 
-    function endQuiz() {
-      showScreen('endScreen');
-      document.getElementById('finalScore').innerText = score;
-      let msg = "";
-      if (score > 900) msg = "👑 مستواك: سيبويه زمانك! لغتك العربية لا يُعلى عليها.";
-      else if (score > 500) msg = "⚡ مستواك: متمكن جداً ولديك حس لغوي قوي!";
-      else msg = "📚 مستواك: بداية جيدة، تحتاج إلى القليل من المراجعة وتصبح أسطورة!";
-      document.getElementById('endMessage').innerText = msg;
+    function showResults() {
+      const box = document.querySelector('.quiz-container');
+      box.innerHTML = `
+        <div style="text-align: center; padding: 30px 10px;">
+          <i class="fa-solid fa-award" style="font-size: 4.5rem; color: var(--accent); margin-bottom: 20px;"></i>
+          <h2 style="font-size: 2.2rem; margin-bottom: 12px;">أبدعت يا بطل! اكتمل الاختبار بنجاح</h2>
+          <p style="font-size: 1.4rem; color: var(--text-muted); margin-bottom: 25px;">مجموع النقاط: <strong style="color: #60a5fa;">${totalScore}</strong> من ${quizData.length * 10}</p>
+          <button class="btn-action" style="padding: 12px 30px; font-size: 1.1rem; margin: 0 auto;" onclick="location.reload()">
+            <i class="fa-solid fa-rotate-right"></i> إعادة الاختبار من جديد
+          </button>
+        </div>
+      `;
+      confetti({ particleCount: 160, spread: 100, origin: { y: 0.5 } });
     }
 
-    function restartQuiz() {
-      startQuiz();
+    function switchView(view) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.view-content').forEach(viewBox => viewBox.classList.remove('active'));
+
+      if (view === 'lessons') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('lessons-view').classList.add('active');
+      } else {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('quiz-view').classList.add('active');
+        if (currentIdx === 0) renderQuiz();
+      }
     }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    function toggleTextSize() {
+      document.body.classList.toggle('large-display');
+    }
+
+    renderQuiz();
   </script>
 </body>
 </html>
